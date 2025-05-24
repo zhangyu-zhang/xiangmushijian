@@ -2,75 +2,24 @@
 #include <algorithm>
 #include <chrono>
 #include <thread>
-#include <random>
 using namespace std;
 int k;
 int hao[1000][1000];
 int huai[1000][1000];
 int main()
 {
-	// 随机数生成器
-    std::random_device rd; // 随机数设备
-    std::mt19937 gen(rd()); // 以随机设备作为种子的Mersenne Twister生成器
-
-    // 分配一个在 [4, 1000] 范围内的均匀分布的随机数
-    std::uniform_int_distribution<> distrib(4, 30); // 从4开始，因为要大于2
-
-    // 生成随机偶数
-    int randomEvenNumber = distrib(gen);
-
-    // 确保是偶数
-    if (randomEvenNumber % 2 != 0) {
-        randomEvenNumber++;
-    }
     //输入蓝图和故障图,使用数组
-    k=randomEvenNumber;
-    cout<<k<<endl;
+    cin >> k;
     int n = k * k + k*k/4;
-    cout<<n<<endl;
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
-            hao[i][j]=0;
-            huai[i][j]=0;
+            cin >> hao[i][j];
         }
     }
     for (int i = 0; i < n; i++) {
-        if(i<k*k/4){
-            for(int j=0;j<k;j++){
-            	hao[i][j*k/2+k+i*2/k]=1;
-            	hao[j*k/2+k+i*2/k][i]=1;
-			}
-		}
-		else if(i>=n-k*k/2){
-			int index3=int((i-k*k/2)/(k/2))-(k/2);
-			for(int kvv=0;kvv<k/2;kvv++){
-				hao[i][index3*k/2+kvv+k*k/4]=1;
-				hao[index3*k/2+kvv+k*k/4][i]=1;
-			}		
-		}
-    }
-    for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
-            cout<<hao[i][j]<<" ";
-            huai[i][j]=hao[i][j];
+            cin >> huai[i][j];
         }
-        cout<<endl;
-    }
-    for (int i = 0; i < 4; i++) {
-    	int a,b;
-        cin>>a>>b;
-        if(huai[a][b]==0){
-        	huai[a][b]=1;
-		}
-		else{
-			huai[a][b]=0;
-		}
-		if(huai[b][a]==0){
-        	huai[b][a]=1;
-		}
-		else{
-			huai[b][a]=0;
-		}
     }
     //计算一下每个点有多少个邻居
 
@@ -145,7 +94,6 @@ int main()
     //可以先分析每个类都数量相同的情况。
     auto lastOutputTime= std::chrono::steady_clock::now();
     int zuixiao = 999;
-    int aa=0,bb=0,cc=0; 
     do {
         int duiyin[100];
         for (int i = 0; i < k4; i++) {
@@ -196,19 +144,11 @@ int main()
                 }
                 auto currentTime = std::chrono::steady_clock::now();
                 if (std::chrono::duration_cast<std::chrono::seconds>(currentTime - lastOutputTime).count() >1) {
-            	aa=1;
                 std::cout << "No output for "  << " seconds, breaking all loops." << std::endl;
                 return 0; // 退出内层循环
             	}
             } while (next_permutation(huaiban, huaiban + k2));
-            if(aa==1){
-            	bb=1;
-            	break;
-			}
         } while (next_permutation(huaiquan2, huaiquan2 + k6));
-        if(bb==1){
-        	break;
-		}
     } while (next_permutation(huaiquan1, huaiquan1 + k4));
     return 0;
 }
